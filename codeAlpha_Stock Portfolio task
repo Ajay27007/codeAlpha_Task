@@ -1,0 +1,60 @@
+def show_stocks(price_data):
+    print("\nAvailable Stocks:")
+    for name in price_data:
+        print(name, "- $", price_data[name])
+
+
+def calculate_total(portfolio):
+    total = 0
+    for item in portfolio:
+        total += item[2]   # item[2] = investment value
+    return total
+
+
+def stock_tracker():
+    prices = {
+        "AAPL": 180,
+        "TSLA": 250,
+        "AMZN": 130,
+        "MSFT": 300
+    }
+
+    portfolio = []   # List format: [stock_name, quantity, value]
+
+    print("=== Simple Stock Investment Calculator ===")
+
+    while True:
+        show_stocks(prices)
+
+        choice = input("\nEnter stock name (or 'exit'): ").upper().strip()
+
+        if choice == "EXIT":
+            break
+
+        if choice not in prices:
+            print("Invalid stock name!")
+            continue
+
+        try:
+            qty = int(input("Enter quantity: "))
+        except ValueError:
+            print("Enter a valid number!")
+            continue
+
+        value = qty * prices[choice]
+        portfolio.append([choice, qty, value])
+
+        print(choice, "added successfully!")
+
+    # Display summary
+    print("\n=== Investment Summary ===")
+    for record in portfolio:
+        print("Stock:", record[0],
+              "| Qty:", record[1],
+              "| Value: $", record[2])
+
+    total_amount = calculate_total(portfolio)
+    print("\nTotal Investment Value: $", total_amount)
+
+
+stock_tracker()
