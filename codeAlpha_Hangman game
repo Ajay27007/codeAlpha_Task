@@ -1,0 +1,61 @@
+import random
+
+def display_word(word, guessed):
+    output = ""
+    for letter in word:
+        if letter in guessed:
+            output += letter + " "
+        else:
+            output += "_ "
+    return output.strip()
+
+
+def hangman():
+    words = ["python", "alpha", "intern", "simple", "project"]
+    word = random.choice(words)
+
+    guessed_letters = []   # list instead of set
+    attempts = 6
+
+    print("=== Hangman Game ===")
+    print("Guess the word (you can enter letter or full word)\n")
+
+    while attempts > 0:
+        print("Word:", display_word(word, guessed_letters))
+        print("Used letters:", guessed_letters)
+        print("Attempts left:", attempts)
+
+        guess = input("Enter guess: ").lower().strip()
+
+        # Full word guess
+        if len(guess) > 1:
+            if guess == word:
+                print("Correct! You guessed the word:", word)
+                return
+            else:
+                attempts -= 1
+                print("Wrong word guess!")
+                continue
+
+        # Single letter guess
+        if guess in guessed_letters:
+            print("Already tried!")
+            continue
+
+        guessed_letters.append(guess)
+
+        if guess not in word:
+            attempts -= 1
+            print("Wrong letter!")
+        else:
+            print("Good guess!")
+
+        # Check win condition
+        if all(letter in guessed_letters for letter in word):
+            print("\nCongratulations! The word is:", word)
+            return
+
+    print("\nGame Over! The word was:", word)
+
+
+hangman()
