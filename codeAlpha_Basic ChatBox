@@ -1,0 +1,36 @@
+def get_response(user_text):
+    user_text = user_text.lower()
+
+    if "hello" in user_text or "hi" in user_text:
+        return "Hello!"
+    elif "how are you" in user_text:
+        return "I'm doing good!"
+    elif "name" in user_text:
+        return "I'm a simple Python Chatbot."
+    elif "bye" in user_text:
+        return "Goodbye!"
+    else:
+        return "Sorry, I didn't understand."
+
+
+def chatbot():
+    print("=== Basic Chatbot ===")
+    print("Type 'bye' to exit\n")
+
+    chat_count = 0
+
+    while True:
+        user_input = input("You: ").strip()
+        response = get_response(user_input)
+
+        print("Bot:", response)
+        chat_count += 1
+
+        if "bye" in user_input.lower():
+            break
+
+    print("\nSession ended.")
+    print("Total messages exchanged:", chat_count)
+
+
+chatbot()
